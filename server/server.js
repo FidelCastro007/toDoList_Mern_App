@@ -12,7 +12,7 @@ console.log('Port:', process.env.PORT)
 //Middleware
 app.use(bodyParser.json())
 app.use(cors({
-  origin: process.env.REACT_FRONT_END_URL, // Allow your frontend domain
+  origin: process.env.REACT_APP_FRONTEND_URL, // Allow your frontend domain
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow specific methods if needed
   credentials: true, // If you need to send cookies or authentication information
 }));
