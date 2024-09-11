@@ -14,10 +14,6 @@ export const DataProvider = ({children}) => {
     const {width} = useWindowSize()
     const {data, fetchError, isLoading} = useAxiosFetch(`${process.env.REACT_APP_BACKEND_URL}/Api/todos`)
   
-    //useeffect means once code completely done then useeffect load with dependency lisit that list's value once change it varies otherwise it's constant//
-  
-   // console.log("Before UseEffect")
-  
    useEffect (() => {
     setItems(data)
   }, [data])
@@ -28,21 +24,6 @@ export const DataProvider = ({children}) => {
     );
     setSearchResults(filterResults);
 }, [items, search]);
-
-
-  
-   // console.log("After UseEffect")
-  
-  
-   /*focus logic
-   //useRef in both states or more that can handle focus easily in simple manner
-    useEffect(() => {
-      if (inputRef.current) {
-        inputRef.current.focus(); // Ensure autofocus on mount
-      }
-    }, []); // Empty dependency array ensures this effect runs only once on mount
-    // && means checking both states as true
-    */
   
     const addItem = async (item) => {
       const id = items.length ? items[items.length - 1].id + 1 : 1;
@@ -67,18 +48,6 @@ export const DataProvider = ({children}) => {
       }
     }
    
- /*      const postOptions = {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(addNewItem)
-      }
-  
-      const result = await apiRequest(API_URL,postOptions)
-      if(result) setFetchError(result)
-      }
-   */
       const handleCheck = async (id) => {
         const myItem = items.find(item => item.id === id);
         
@@ -106,24 +75,6 @@ export const DataProvider = ({children}) => {
             console.error("Error updating item:", error.message);
         }
     };
-    
-        /* const myItem = updatedItems.find(item => item.id === id);
-    
-        const updateOptions = {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ checked: myItem.checked })
-        };
-    
-        const reqUrl = `${API_URL}/${id}`;
-        console.log("PATCH request URL:", reqUrl);
-        
-        const result = await apiRequest(reqUrl, updateOptions);
-        if (result) {
-          setFetchError(result);
-        }*/
   
     const handleDelete = async (id) => {
       console.log(`Handling delete for ID: ${id}`);
@@ -132,18 +83,7 @@ export const DataProvider = ({children}) => {
   /*       const reqUrl = `${API_URL}/${id}`;
         console.log("DELETE request URL:", reqUrl); */
         await api.delete(`/Api/todos/${id}`)
-        
-      /*   const deleteOptions = {
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        };
     
-        const result = await apiRequest(reqUrl, deleteOptions); 
-        if (result) {
-          setFetchError(result);
-        } */
           const updatedItems = items.filter(item => item.id !== id);
           setItems(updatedItems);
       } catch (error) {
@@ -158,11 +98,6 @@ export const DataProvider = ({children}) => {
       addItem(newItem)
       setNewItem('')
     }
-  
-    /*const updateItems = (newItems) => {
-      setItems(newItems)  ;
-      localStorage.setItem("todo_list",JSON.stringify(newItems))
-    }*/
   
     const focusInput = () => {
       if(inputRef.current){
