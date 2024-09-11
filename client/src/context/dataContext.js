@@ -12,7 +12,7 @@ export const DataProvider = ({children}) => {
     const [searchResults, setSearchResults] = useState([])
     const inputRef = useRef()
     const {width} = useWindowSize()
-    const {data, fetchError, isLoading} = useAxiosFetch(REACT_APP_BACKEND_URL)
+    const {data, fetchError, isLoading} = useAxiosFetch(process.env.REACT_APP_BACKEND_URL)
   
     //useeffect means once code completely done then useeffect load with dependency lisit that list's value once change it varies otherwise it's constant//
   
